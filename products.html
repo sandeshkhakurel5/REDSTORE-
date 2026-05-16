@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - REDSTORE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        .product-form {
+            background: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+            display: none;
+        }
+        .product-form input, .product-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+        .toggle-form-btn {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="" width="125px">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="products.html">PRODUCTS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="">ACCOUNT</a></li>
+                </ul>
+
+            </nav>
+            <a href="cart.html"><img src="images/cart.png" alt="" width="28px" height="28px"></a>
+        </div>
+    </div>
+
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>All Products</h2>
+            <button class="btn toggle-form-btn" onclick="toggleForm()">Add New Product</button>
+        </div>
+
+        <!-- Add Product Form -->
+        <div id="add-product-form" class="product-form">
+            <h3>Add New Product</h3>
+            <input type="text" id="name" placeholder="Product Name" required>
+            <input type="number" id="price" placeholder="Price" required>
+            <input type="text" id="image_url" placeholder="Image URL (e.g., images/product-1.jpg)" required>
+            <input type="number" id="rating" placeholder="Rating (0-5)" step="0.5" min="0" max="5">
+            <select id="is_featured">
+                <option value="false">Regular Product</option>
+                <option value="true">Featured Product</option>
+            </select>
+            <button class="btn" onclick="addNewProduct()">Save Product</button>
+        </div>
+
+        <div class="row" id="all-products">
+            <!-- Products will be loaded here -->
+        </div>
+
+        <div class="page-btn">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>&#8594;</span>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Our mobile application is available via App Store And Playstore.</p>
+                </div>
+                <div class="footer-col-2">
+                    <img src="images/logo-white.png" alt="">
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Join Affiliates</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow US</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>Twitter</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2026</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="products.js"></script>
+    <script>
+        // Additional functions for products.html
+        function toggleForm() {
+            const form = document.getElementById('add-product-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        async function addNewProduct() {
+            const name = document.getElementById('name').value;
+            const price = document.getElementById('price').value;
+            const image_url = document.getElementById('image_url').value;
+            const rating = document.getElementById('rating').value;
+            const is_featured = document.getElementById('is_featured').value === 'true';
+
+            if (!name || !price || !image_url) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('products')
+                    .insert([{ name, price, image_url, rating, is_featured }]);
+
+                if (error) throw error;
+
+                alert('Product added successfully!');
+                toggleForm();
+                fetchProducts(); // Refresh list
+            } catch (error) {
+                console.error('Error adding product:', error.message);
+                alert('Error adding product. Check Supabase connection.');
+            }
+        }
+
+        // Overriding renderProducts for this page to use #all-products container
+        const originalRender = renderProducts;
+        renderProducts = function(products) {
+            const allProductsContainer = document.getElementById('all-products');
+            if (allProductsContainer) {
+                allProductsContainer.innerHTML = '';
+                products.forEach(product => {
+                    allProductsContainer.innerHTML += `
+                        <div class="col-4">
+                            <img src="${product.image_url}" alt="${product.name}">
+                            <h4>${product.name}</h4>
+                            <div class="rating">
+                                ${renderRating(product.rating)}
+                            </div>
+                            <p>Rs.${product.price}</p>
+                            <button class="btn add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                        </div>
+                    `;
+                });
+            } else {
+                originalRender(products);
+            }
+        };
+    </script>
+</body>
+</html>
