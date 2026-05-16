@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - REDSTORE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        .cart-page {
+            margin: 80px auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .cart-info {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        th {
+            text-align: left;
+            padding: 5px;
+            color: #fff;
+            background: lightcoral;
+            font-weight: normal;
+        }
+        td {
+            padding: 10px 5px;
+        }
+        td input {
+            width: 40px;
+            height: 30px;
+            padding: 5px;
+        }
+        td a {
+            color: lightcoral;
+            font-size: 12px;
+        }
+        td img {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+        }
+        .total-price {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .total-price table {
+            border-top: 3px solid lightcoral;
+            width: 100%;
+            max-width: 400px;
+        }
+        td:last-child {
+            text-align: right;
+        }
+        th:last-child {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="" width="125px">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="products.html">PRODUCTS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                    <li><a href="">ACCOUNT</a></li>
+                </ul>
+
+            </nav>
+            <a href="cart.html"><img src="images/cart.png" alt="" width="28px" height="28px"></a>
+        </div>
+    </div>
+
+    <!-- Cart items details -->
+    <div class="small-container cart-page">
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <tbody id="cart-items">
+                <!-- Cart items will be loaded here -->
+            </tbody>
+        </table>
+
+        <div class="total-price">
+            <table>
+                <tr>
+                    <td>Subtotal</td>
+                    <td id="subtotal">Rs.0</td>
+                </tr>
+                <tr>
+                    <td>Tax</td>
+                    <td id="tax">Rs.0</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td id="total">Rs.0</td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: right; margin-top: 20px;">
+            <a href="" class="btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <!-- (Reusing footer from index.html) -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Our mobile application is available via App Store And Playstore.</p>
+                </div>
+                <div class="footer-col-2">
+                    <img src="images/logo-white.png" alt="">
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Join Affiliates</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow US</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>Twitter</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2026</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

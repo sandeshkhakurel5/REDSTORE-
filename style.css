@@ -5,12 +5,14 @@
 }
 body{
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 .navbar{
     display: flex;
-    text-align: center;
+    align-items: center;
     padding: 20px;
-
 }
 nav{
     flex: 1;
@@ -35,16 +37,23 @@ p{
 }
 .container{
     max-width: 1300px;
-    margin: auto;
+    width: 100%;
+    margin: 0 auto;
     padding-left: 25px;
     padding-right: 25px;
 }
 .row{
     display: flex;
     align-items: center;
-    flex-wrap: left;
-    justify-content: space-around;
-
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.row > div {
+    /* Optional: Ensure there's some space if items don't fill the row */
+    margin-right: 0; 
+}
+.col-4, .col-3, .col-2, .col-5 {
+    /* Add some padding or margin if needed, but flex-basis handles most of it */
 }
 .col-2{
     flex-basis: 50%;
@@ -60,6 +69,12 @@ p{
     line-height: 60px;
     margin: 25px 0;
 }
+a, button, input[type="submit"], input[type="button"], .btn{
+    cursor: pointer;
+}
+.navbar img{
+    cursor: pointer;
+}
 .btn{
     display: inline-block;
     background: lightcoral;
@@ -67,7 +82,7 @@ p{
     padding: 8px 30px;
     margin: 30px 0;
     border-radius: 30px;
-    transition: backgrond 0.5s;
+    transition: background 0.5s;
 }
 .btn:hover{
     background:blueviolet ;
@@ -79,7 +94,7 @@ p{
 .header .row{
     margin-top: 70px;
 }
-/* Catagories CSS */
+/* Categories CSS */
 .catagories{
     margin: 70px 0;
 
@@ -96,12 +111,11 @@ p{
 /* Featured product CSS */
 .small-container{
     max-width: 1080px;
-    margin: auto;
+    width: 100%;
+    margin: 0 auto;
     padding-left: 25px;
     padding-right: 25px;
     text-align: center;
-    flex-wrap: wrap;
-
 }
 .col-4{
     flex-basis: 25%;
@@ -109,12 +123,9 @@ p{
     min-width: 200px;
     margin-bottom: 50px;
     transition: transform 0.5s;
-
 }
 .col-4 img{ 
     width: 100%;
-    
-
 }
 .rating{
     color: goldenrod;
@@ -123,15 +134,47 @@ p{
     margin: 0 auto 80px;
     color: violet;
     transition: 0.5s;
+    cursor: pointer;
 }
 .title:hover{
     background:blueviolet;
+    color: white;
 }
 h4{
     color: blueviolet;
 }
 .col-4:hover{
     transform: translateY(-5px);
+}
+/* Pagination */
+.page-btn{
+    margin: 0 auto 80px;
+}
+.page-btn span{
+    display: inline-block;
+    border: 1px solid lightcoral;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+.page-btn span:hover{
+    background: lightcoral;
+    color: white;
+}
+/* Special row for title and button */
+.row-2{
+    justify-content: space-between;
+    margin: 100px auto 50px;
+}
+select{
+    border: 1px solid lightcoral;
+    padding: 5px;
+}
+select:focus{
+    outline: none;
 }
 /* Offer */
 .offer{
@@ -166,6 +209,7 @@ small{
     color: whitesmoke;
     font-size: 14px;
     padding: 60px 0 20px;
+    margin-top: auto;
 }
 .footer p{
     color: whitesmoke;
